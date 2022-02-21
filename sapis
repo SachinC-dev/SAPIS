@@ -1,0 +1,28 @@
+#!/usr/bin/env bash
+
+#              ____       _      ____    ___   ____  
+#             / ___|     / \    |  _ \  |_ _| / ___| 
+#             \___ \    / _ \   | |_) |  | |  \___ \ 
+#              ___) |  / ___ \  |  __/   | |   ___) |
+#             |____/  /_/   \_\ |_|     |___| |____/ 
+                                       
+takeConsent (){
+    printf "It is going to override your configs\nAre you sure? [Y/n]: "
+    read consent
+}
+
+riceIt (){
+    mkdir -p $HOME/.cache/SAPIS
+    echo "Cloning dotfiles .."; git clone https://github.com/SachinC-dev/.dotfiles ~/.cache/SAPIS/.dotfiles
+}
+
+takeConsent
+if [[ $consent == "n" || $consent == "N" ]]; then
+    echo "Exited"
+    exit 1
+elif [[ $consent == "y" || $consent == "Y" || -z $consent ]]; then
+    riceIt
+else
+    echo "Enter valid options !!"
+    takeConsent
+fi
